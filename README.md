@@ -27,5 +27,3 @@ fittrack-ai/
     └── ⚙️_Configuracion.py    # Gestión de perfil y algoritmos de salud
 
 Lenguaje: Python 3.9+.
-
-📂 Estructura del Proyecto
