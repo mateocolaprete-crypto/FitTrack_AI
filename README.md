@@ -18,12 +18,7 @@ Cerebro de IA: Google Gemini API (Modelo 1.5 Flash).
 Base de Datos: Google Sheets API (Persistencia de datos en la nube).
 
 📂 Estructura del Proyecto
-fittrack-ai/
-├── 📊_Home.py                # Panel central y métricas diarias
-├── requirements.txt           # Dependencias del sistema
-└── pages/                     # Módulos de la aplicación
-    ├── 🍎_Nutricion.py        # Procesamiento de lenguaje natural con IA
-    ├── 💪_Entrenamiento.py     # Log de fuerza y volumen
-    └── ⚙️_Configuracion.py    # Gestión de perfil y algoritmos de salud
+fittrack-ai: 📊_Home.py (Panel central y métricas diarias). requirements.txt  (Dependencias del sistema). pages/ (Módulos de la aplicación):
+ 🍎_Nutricion.py (Procesamiento de lenguaje natural con IA). 💪_Entrenamiento.py (Log de fuerza y volumen). ⚙️_Configuracion.py (Gestión de perfil y algoritmos de salud)
 
 Lenguaje: Python 3.9+.
