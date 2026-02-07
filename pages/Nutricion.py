@@ -18,7 +18,12 @@ if api_key:
     genai.configure(api_key=api_key)
 else:
     st.error("⚠️ No se encontró la GEMINI_API_KEY en los Secrets de Streamlit.")
-model = genai.GenerativeModel('gemini-1.5-flash')
+# Configuración corregida
+genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
+model = genai.GenerativeModel(
+    model_name="gemini-1.5-flash",
+    generation_config={"replacement_model_name": "models/gemini-1.5-flash"}
+)
 
 st.title("🍎 Analizador de Comidas Inteligente")
 st.markdown("Escribí lo que comiste y nuestra IA calculará los macros automáticamente.")
@@ -103,6 +108,7 @@ if "temp_data" in st.session_state:
             st.balloons() # Pequeño festejo visual
         except Exception as e:
             st.error(f"Error al guardar en Google Sheets: {e}")
+
 
 
 
