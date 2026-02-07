@@ -1,5 +1,5 @@
 import streamlit as st
-from st_gsheets_connection import GSheetsConnection
+from streamlit_gsheets import GSheetsConnection
 import pandas as pd
 
 st.set_page_config(page_title="Configuración de Perfil", page_icon="⚙️")
@@ -86,4 +86,5 @@ try:
         st.info("Aún no hay datos guardados.")
 except:
     st.info("La hoja 'Perfil' está lista para recibir tus datos.")
+
 
