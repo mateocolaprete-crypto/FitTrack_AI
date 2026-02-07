@@ -11,7 +11,13 @@ st.set_page_config(page_title="Analizador Nutricional IA", page_icon="🍎", lay
 
 # Conexión a Google Sheets y Gemini
 conn = st.connection("gsheets", type=GSheetsConnection)
-genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
+# Intenta obtener la clave de secrets, si no, usa un string vacío para no romper todo el script de una
+api_key = st.secrets.get("GEMINI_API_KEY")
+
+if api_key:
+    genai.configure(api_key=api_key)
+else:
+    st.error("⚠️ No se encontró la GEMINI_API_KEY en los Secrets de Streamlit.")
 model = genai.GenerativeModel('gemini-1.5-flash')
 
 st.title("🍎 Analizador de Comidas Inteligente")
@@ -97,5 +103,6 @@ if "temp_data" in st.session_state:
             st.balloons() # Pequeño festejo visual
         except Exception as e:
             st.error(f"Error al guardar en Google Sheets: {e}")
+
 
 
