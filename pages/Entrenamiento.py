@@ -1,5 +1,5 @@
 import streamlit as st
-from streamlit_gsheets import GSheetsConnection
+from st_gsheets_connection import GSheetsConnection
 import pandas as pd
 from datetime import datetime
 
@@ -67,3 +67,4 @@ try:
         st.info("Aún no hay entrenamientos registrados. ¡Dale a los hierros! 🏋️‍♂️")
 except:
     st.info("La pestaña 'Entrenamientos' en el Excel está lista para recibir datos.")
+
