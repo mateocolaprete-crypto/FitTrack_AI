@@ -1,6 +1,6 @@
 import streamlit as st
 import google.generativeai as genai
-from st_gsheets_connection import GSheetsConnection
+from streamlit_gsheets import GSheetsConnection
 import pandas as pd
 import json
 import re
@@ -97,4 +97,5 @@ if "temp_data" in st.session_state:
             st.balloons() # Pequeño festejo visual
         except Exception as e:
             st.error(f"Error al guardar en Google Sheets: {e}")
+
 
