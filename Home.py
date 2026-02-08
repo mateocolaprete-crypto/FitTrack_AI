@@ -3,7 +3,7 @@ from streamlit_gsheets import GSheetsConnection
 import pandas as pd
 from datetime import datetime
 
-# 1. CONFIGURACIÓN DE PÁGINA (Debe ser lo primero)
+# 1. CONFIGURACIÓN DE PÁGINA
 st.set_page_config(
     page_title="FitTrack AI - Professional",
     page_icon="🚀",
@@ -36,7 +36,7 @@ st.title("📊 FitTrack AI: Tu Centro de Mando")
 fecha_hoy = datetime.now().strftime("%d / %m / %Y")
 st.info(f"📅 Hoy es {fecha_hoy}")
 
-# 4. LÓGICA DE NEGOCIO (Procesamiento de Macros)
+# 4. LÓGICA DE NEGOCIO 
 if not df_perfil.empty:
     user = df_perfil.iloc[0]  # Tomamos el primer perfil configurado
     
@@ -64,7 +64,7 @@ if not df_perfil.empty:
     restante_cal = user['Calorias_Meta'] - cal_hoy
     m1.metric("🔥 Calorías Restantes", f"{restante_cal} kcal", delta=f"{cal_hoy} consumidas", delta_color="inverse")
     
-    # Proteínas (El macro más importante)
+    # Proteínas 
     m2.metric("🍗 Proteína", f"{prot_hoy}g / {user['Proteina_Meta']}g")
     
     # Otros macros
@@ -97,5 +97,6 @@ else:
 if not df_comidas.empty:
     with st.expander("👁️ Ver últimas comidas registradas"):
         st.table(df_comidas.tail(5))
+
 
 
