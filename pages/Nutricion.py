@@ -13,6 +13,9 @@ st.set_page_config(page_title="Analizador Nutricional IA", page_icon="🍎", lay
 conn = st.connection("gsheets", type=GSheetsConnection)
 
 # 2. CONFIGURACIÓN DE GEMINI
+# Definimos la variable ANTES de usarla en el IF
+api_key = st.secrets.get("GEMINI_API_KEY")
+
 if api_key:
     genai.configure(api_key=api_key)
     try:
@@ -105,4 +108,5 @@ if "temp_data" in st.session_state:
             st.balloons() 
         except Exception as e:
             st.error(f"Error al guardar en Google Sheets: {e}")
+
 
