@@ -64,7 +64,7 @@ if st.button("Analizar Comida ✨", use_container_width=True):
                 Usa valores numéricos enteros. Si no hay cantidades, estima una porción normal.
                 JSON:
                 """
-                response = model.generate_content(prompt)
+                response = model.generate_content(prompt, generation_config={"tag": "v1"})
                 
                 # Limpieza del JSON
                 match = re.search(r"\{.*\}", response.text, re.DOTALL)
@@ -117,6 +117,7 @@ if "temp_data" in st.session_state:
             st.balloons() 
         except Exception as e:
             st.error(f"Error al guardar en Google Sheets: {e}")
+
 
 
 
