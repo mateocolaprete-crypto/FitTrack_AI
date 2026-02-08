@@ -2,6 +2,7 @@ import streamlit as st
 import google.generativeai as genai
 from streamlit_gsheets import GSheetsConnection
 import pandas as pd
+import os
 import json
 import re
 from datetime import datetime
@@ -18,19 +19,12 @@ conn = st.connection("gsheets", type=GSheetsConnection)
 api_key = st.secrets.get("GEMINI_API_KEY")
 
 if api_key:
+    # Esta variable de entorno obliga a la librería a usar la API estable (v1) en lugar de la beta
+    os.environ["GOOGLE_API_USE_MTLS_ENDPOINT"] = "never"
     genai.configure(api_key=api_key)
     
-    # Esta configuración fuerza el uso del modelo correcto sin importar la versión de la API
-    try:
-        # Intentamos la versión más moderna y estable
-        model = genai.GenerativeModel(
-            model_name='gemini-1.5-flash'
-        )
-        # Probamos una respuesta rápida para ver si conecta
-        # Si esto falla, saltará al except
-    except Exception:
-        # Si la v1beta sigue molestando, usamos el nombre de recurso completo
-        model = genai.GenerativeModel(model_name='models/gemini-1.5-flash')
+    # Usamos el nombre de modelo estándar
+    model = genai.GenerativeModel('gemini-1.5-flash')
 else:
     st.error("⚠️ No se encontró la GEMINI_API_KEY en los Secrets de Streamlit.")
     st.stop()
@@ -64,7 +58,7 @@ if st.button("Analizar Comida ✨", use_container_width=True):
                 Usa valores numéricos enteros. Si no hay cantidades, estima una porción normal.
                 JSON:
                 """
-                response = model.generate_content(prompt, generation_config={"tag": "v1"})
+                response = model.generate_content(prompt)
                 
                 # Limpieza del JSON
                 match = re.search(r"\{.*\}", response.text, re.DOTALL)
@@ -117,6 +111,7 @@ if "temp_data" in st.session_state:
             st.balloons() 
         except Exception as e:
             st.error(f"Error al guardar en Google Sheets: {e}")
+
 
 
 
