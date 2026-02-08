@@ -21,13 +21,12 @@ else:
 # Configuración corregida
 import google.generativeai as genai
 
-# 1. Configuración de la API Key
+# Configura la llave desde tus secrets
 genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
-# 2. Definición del modelo con el nombre más compatible
-# Intentamos con la versión de producción estable
-try:
-    model = genai.GenerativeModel('gemini-1.5-flash')
+# Usamos 'gemini-1.5-flash' sin prefijos extras, 
+# la librería se encarga del resto si está actualizada.
+model = genai.GenerativeModel('gemini-1.5-flash')
 except Exception:
     # Si falla, intentamos con el nombre completo de sistema
     model = genai.GenerativeModel('models/gemini-1.5-flash')
@@ -115,6 +114,7 @@ if "temp_data" in st.session_state:
             st.balloons() # Pequeño festejo visual
         except Exception as e:
             st.error(f"Error al guardar en Google Sheets: {e}")
+
 
 
 
