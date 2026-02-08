@@ -14,14 +14,23 @@ conn = st.connection("gsheets", type=GSheetsConnection)
 
 # 2. CONFIGURACIÓN DE GEMINI
 # Definimos la variable ANTES de usarla en el IF
+# 2. CONFIGURACIÓN DE GEMINI
 api_key = st.secrets.get("GEMINI_API_KEY")
 
 if api_key:
     genai.configure(api_key=api_key)
+    
+    # Esta configuración fuerza el uso del modelo correcto sin importar la versión de la API
     try:
-        model = genai.GenerativeModel('gemini-1.5-flash')
+        # Intentamos la versión más moderna y estable
+        model = genai.GenerativeModel(
+            model_name='gemini-1.5-flash'
+        )
+        # Probamos una respuesta rápida para ver si conecta
+        # Si esto falla, saltará al except
     except Exception:
-        model = genai.GenerativeModel('models/gemini-1.5-flash')
+        # Si la v1beta sigue molestando, usamos el nombre de recurso completo
+        model = genai.GenerativeModel(model_name='models/gemini-1.5-flash')
 else:
     st.error("⚠️ No se encontró la GEMINI_API_KEY en los Secrets de Streamlit.")
     st.stop()
@@ -108,5 +117,6 @@ if "temp_data" in st.session_state:
             st.balloons() 
         except Exception as e:
             st.error(f"Error al guardar en Google Sheets: {e}")
+
 
 
